@@ -1,0 +1,42 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/lxd/xiaofu_ws/devel/include/**",
+        "/opt/ros/melodic/include/**",
+        "/home/lxd/test_ros/devel/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/amcl/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/base_local_planner/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/carrot_planner/include/**",
+        "/home/lxd/test_ros/src/send_file/clean_car_target/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/clear_costmap_recovery/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/costmap_2d/include/**",
+        "/home/lxd/test_ros/src/send_file/costmap_depth_camera/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/dwa_local_planner/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/global_planner/include/**",
+        "/home/lxd/test_ros/src/send_file/laser_scan_matcher_odometry/include/**",
+        "/home/lxd/test_ros/src/map_process/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/map_server/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/move_base/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/move_slow_and_clear/include/**",
+        "/home/lxd/xiaofu_ws/src/xiaofu_code/robot_mrobot/mrobot_bringup/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/nav_core/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/navfn/include/**",
+        "/home/lxd/xiaofu_ws/src/xiaofu_code/opencv_show_map/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/rotate_recovery/include/**",
+        "/home/lxd/test_ros/src/send_file/tf2odom/include/**",
+        "/home/lxd/xiaofu_ws/src/xiaofu_code/turn_on_wheeltec_robot/include/**",
+        "/home/lxd/test_ros/src/send_file/navigation/voxel_grid/include/**",
+        "/home/lxd/xiaofu_ws/src/xiaofu_code/xiaofu_task_server/include/**",
+        "/home/lxd/xiaofu_ws/src/xiaofu_code/yocs_cmd_vel_mux/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

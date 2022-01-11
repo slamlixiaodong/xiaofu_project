@@ -1,0 +1,12 @@
+<launch>
+    <arg name="map_file" default="$(find turn_on_wheeltec_robot)/map/1155.yaml" />
+
+    <group if="$(arg map_file)">
+         <include file="$(find turn_on_wheeltec_robot)/launch/navigation_slam.launch" />
+    </group>
+
+    <group unless="$(arg map_file)">
+         <include file="$(find turn_on_wheeltec_robot)/launch/mapping.launch" />
+    </group>
+
+</launch>

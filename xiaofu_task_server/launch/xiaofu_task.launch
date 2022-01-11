@@ -1,0 +1,12 @@
+<launch>
+    <node pkg="xiaofu_task_server" name="xiaofu_task_server_node" type="xiaofu_task_server_node" respawn="true" output="screen">
+    <param name="sensor_usart_port_name"  type="string"  value="/dev/ttyS1" />
+    <param name="battery_usart_port_name" type="string" value="/dev/ttyS0" />
+    <param name="serial_baud_rate" type="int" value="115200" />
+    <param name="target_file_path" type="string" value="$(find xiaofu_task_server)/config/data_file/target_pose.csv" />
+    <param name="map_file_path" type="string" value="$(find xiaofu_task_server)/config/map/" />
+    <remap from="/voice/cmd_vel" to="/cmd_vel" />   
+    <remap from="/battery/cmd_vel" to="/cmd_vel" />
+    </node>
+    <!-- include file="$(find xiaofu_task_server)/launch/cmd_mux.launch"/ -->
+</launch>
