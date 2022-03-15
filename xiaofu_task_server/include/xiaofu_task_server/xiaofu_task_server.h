@@ -165,7 +165,7 @@ class xiaofu_robot
         // std::vector<move_base_msgs::MoveBaseGoal> read_target_from_file();//从文件导入目标点
         map<string,move_base_msgs::MoveBaseGoal> read_target_from_file();//从文件导入目标点
         // void target_publish(int single_target); //目标点发布函数
-        void target_publish(string tmp_position_name);
+        bool target_publish(string tmp_position_name);
         void save_target_pose_callback(const geometry_msgs::PoseStamped::ConstPtr& msg); //记录目标点到vector回调函数
         void save_target_to_file();//保存目标点到文件
         void turn_left_and_right(string cmd,float goal_angle,float angle_speed,double rate);//左转右转处理函数

@@ -121,7 +121,7 @@ map<string,move_base_msgs::MoveBaseGoal> xiaofu_robot::read_target_from_file()
 }
 
 // void xiaofu_robot::target_publish(int single_target)
-void xiaofu_robot::target_publish(string tmp_position_name)
+bool xiaofu_robot::target_publish(string tmp_position_name)
 {
     // actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base",true);
     // auto target_goal = read_target_from_file();
@@ -134,7 +134,7 @@ void xiaofu_robot::target_publish(string tmp_position_name)
       if(!ac.waitForServer(ros::Duration(60)))
       {
         ROS_INFO("Can't connected to move base server");
-        return ;
+        return false;
       }
       tmp_iterator->second.target_pose.header.stamp = ros::Time::now();
       ac.sendGoal(tmp_iterator->second);
@@ -161,7 +161,7 @@ void xiaofu_robot::target_publish(string tmp_position_name)
       // task_pub.publish(msg);
     }
     else 
-        return;
+        return false;
 }
 
 void xiaofu_robot::mutil_target_publish()
@@ -218,7 +218,7 @@ void xiaofu_robot::mutil_target_publish()
 void xiaofu_robot::androidCallback(const std_msgs::String::ConstPtr& msg)
 {
   // 将接收到的消息打印出来
-  ROS_INFO("I heard: [%s]", msg->data.c_str());
+  // ROS_INFO("I heard: [%s]", msg->data.c_str());
   tmp_cmd_control = msg->data.c_str();
   // xiaofu_task_exec_cb(tmp_cmd_control,xiaofu_task_exec);
 }
@@ -226,10 +226,12 @@ void xiaofu_robot::androidCallback(const std_msgs::String::ConstPtr& msg)
 bool xiaofu_robot::xiaofu_task_server( xiaofu_task_server::xiaofu_server::Request &req,  xiaofu_task_server::xiaofu_server::Response &res)
 {
   // 将接收到的消息打印出来
-  // ROS_INFO("I heard: [%s],[%s]", req.data_req.c_str(),req.context.c_str());
+  // ROS_INFO("I heard : [%s],[%s]", req.data_req.c_str(),req.context.c_str());
   tmp_cmd_control = req.data_req;
+  cout<<tmp_cmd_control<<endl;
   context = req.context;
   xiaofu_task_exec_cb(tmp_cmd_control,context,xiaofu_task_exec);
+  // cout<< android_res << endl;
   res.data_res = android_res;
   return true;
 }
@@ -241,14 +243,15 @@ void xiaofu_robot::xiaofu_task_exec_cb(string cmd_control,string _context_,xf_cb
 string xiaofu_robot::xiaofu_task_exec(string cmd_control,string _context,void* arg)
 {
     xiaofu_robot *_this = (xiaofu_robot *)arg;
+    _this->android_res = "";
+    // ROS_INFO("[%s]",_this->android_res);
     if(cmd_control == "request_target_pose")
-    {
+    {   
       if(_this->move_goal.empty())
       {
         _this->android_res = "no_target_pose";
         return _this->android_res;
       }
-
       for(const auto& map_iterator : _this->move_goal)
       {
         _this->android_res += map_iterator.first + " ";
@@ -259,6 +262,7 @@ string xiaofu_robot::xiaofu_task_exec(string cmd_control,string _context,void* a
         _this->android_res = "charge_mode";
         return _this->android_res;
     }
+
     if(cmd_control == "delete_one_target")
     {
       if(_this->move_goal.erase(_context))
@@ -278,8 +282,8 @@ string xiaofu_robot::xiaofu_task_exec(string cmd_control,string _context,void* a
     if(cmd_control == "single_navigation")
     {
       
-      _this->target_publish(_context);
-      if(_this->ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+      bool test_flag = _this->target_publish(_context);
+      if(!test_flag &&_this->ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
       {
         _this->android_res = "finished single target pose navigation";
       }
